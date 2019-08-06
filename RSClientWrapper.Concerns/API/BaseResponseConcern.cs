@@ -1,6 +1,4 @@
-﻿using RSClientWrapper.Concern;
-
-namespace RSClientWrapper.Concerns.API
+﻿namespace RSClientWrapper.Concerns.API
 {
     public class BaseResponseConcern : IResponseConcern
     {

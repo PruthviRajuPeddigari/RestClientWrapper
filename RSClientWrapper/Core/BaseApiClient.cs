@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using RSClientWrapper.Concern;
+using RSClientWrapper.Concerns;
 using RSClientWrapper.Concerns.API;
 using RSClientWrapper.Contract;
 using RSClientWrapper.Extensions;

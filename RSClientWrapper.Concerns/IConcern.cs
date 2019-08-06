@@ -1,4 +1,4 @@
-﻿namespace RSClientWrapper.Concern
+﻿namespace RSClientWrapper.Concerns
 {
     public interface IConcern
     {

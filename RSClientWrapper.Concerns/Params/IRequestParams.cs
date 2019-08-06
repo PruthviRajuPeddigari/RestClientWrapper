@@ -1,4 +1,4 @@
-﻿namespace RSClientWrapper.Concern.Params
+﻿namespace RSClientWrapper.Concerns.Params
 {
     public interface IRequestParam
     {

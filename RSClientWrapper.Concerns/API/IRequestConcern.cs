@@ -1,7 +1,7 @@
-﻿using RSClientWrapper.Concern.Params;
+﻿using RSClientWrapper.Concerns.Params;
 using System.Collections.Generic;
 
-namespace RSClientWrapper.Concern
+namespace RSClientWrapper.Concerns
 {
     public interface IRequestConcern : IConcern
     {

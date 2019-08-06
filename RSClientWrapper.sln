@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSClientWrapper", "RSClientWrapper\RSClientWrapper.csproj", "{75B4FC58-6ED5-422D-8412-C2346FD9624B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSClientWrapper.Concern", "RSClientWrapper.Concerns\RSClientWrapper.Concern.csproj", "{7A52B943-8B0B-4C74-B37F-F34957314F00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSClientWrapper.Concerns", "RSClientWrapper.Concerns\RSClientWrapper.Concerns.csproj", "{7A52B943-8B0B-4C74-B37F-F34957314F00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSClientWrapper.Contract", "RSClientWrapper.Contracts\RSClientWrapper.Contract.csproj", "{294C5F5F-AE33-4EE9-853F-BF863364099E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSClientWrapper.Contracts", "RSClientWrapper.Contracts\RSClientWrapper.Contracts.csproj", "{294C5F5F-AE33-4EE9-853F-BF863364099E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSClientWrapper.Extensions", "RSClientWrapper.Extensions\RSClientWrapper.Extensions.csproj", "{9CBAF2C3-1685-44B2-8BE4-7818614820D9}"
 EndProject

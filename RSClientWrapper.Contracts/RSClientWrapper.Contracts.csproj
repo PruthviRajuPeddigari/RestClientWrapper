@@ -42,12 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAPIClient.cs" />
+    <Compile Include="ICallbackAPIClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RSClientWrapper.Concerns\RSClientWrapper.Concern.csproj">
+    <ProjectReference Include="..\RSClientWrapper.Concerns\RSClientWrapper.Concerns.csproj">
       <Project>{7A52B943-8B0B-4C74-B37F-F34957314F00}</Project>
-      <Name>RSClientWrapper.Concern</Name>
+      <Name>RSClientWrapper.Concerns</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

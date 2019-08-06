@@ -54,13 +54,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RSClientWrapper.Concerns\RSClientWrapper.Concern.csproj">
+    <ProjectReference Include="..\RSClientWrapper.Concerns\RSClientWrapper.Concerns.csproj">
       <Project>{7a52b943-8b0b-4c74-b37f-f34957314f00}</Project>
-      <Name>RSClientWrapper.Concern</Name>
+      <Name>RSClientWrapper.Concerns</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RSClientWrapper.Contracts\RSClientWrapper.Contract.csproj">
+    <ProjectReference Include="..\RSClientWrapper.Contracts\RSClientWrapper.Contracts.csproj">
       <Project>{294C5F5F-AE33-4EE9-853F-BF863364099E}</Project>
-      <Name>RSClientWrapper.Contract</Name>
+      <Name>RSClientWrapper.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\RSClientWrapper.Extensions\RSClientWrapper.Extensions.csproj">
       <Project>{9CBAF2C3-1685-44B2-8BE4-7818614820D9}</Project>
