@@ -48,8 +48,10 @@
     <Compile Include="API\IErrorConcern.cs" />
     <Compile Include="API\IRequestConcern.cs" />
     <Compile Include="API\IResponseConcern.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Core\CustomConverter.cs" />
     <Compile Include="Core\ITransactionContext.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="IConcern.cs" />
     <Compile Include="Params\IRequestParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

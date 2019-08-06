@@ -3,6 +3,7 @@ using RestSharp;
 using RSClientWrapper.Concerns;
 using RSClientWrapper.Concerns.API;
 using RSClientWrapper.Contract;
+using RSClientWrapper.Contracts;
 using RSClientWrapper.Extensions;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,9 @@ namespace RSClientWrapper.Core
 
         public string BaseUrl { get; }
 
-        public BaseApiClient(string baseUrl
-            //, ILoggerContract logger
-            )
+        public ILoggerContract Logger { get; set; }
+
+        public BaseApiClient(string baseUrl, ILoggerContract logger = null)
         {
             BaseUrl = baseUrl;
             restClient = new RestClient(baseUrl)
@@ -33,20 +34,20 @@ namespace RSClientWrapper.Core
             restClient.AddHandler("application/json", () => JsonSerializer.Default);
             restClient.AddHandler("text/json", () => JsonSerializer.Default);
             restClient.AddHandler("text/x-json", () => JsonSerializer.Default);
-            //Logger = logger;
-            //if (Logger == null)
-            //{
-            //    Logger = new DefaultLogger(string.Empty, string.Empty, null);
-            //}
+            Logger = logger;
+            if (Logger == null)
+            {
+                Logger = new DefaultLogger(string.Empty, string.Empty);//, null);
+            }
         }
 
 
         protected void TimeoutCheck(IRestRequest request, IRestResponse response)
         {
-            //if (response.StatusCode == 0)
-            //{
-            //    Log(this.restClient.BaseUrl, request, response);
-            //}
+            if (response.StatusCode == 0)
+            {
+                Log(this.restClient.BaseUrl, request, response);
+            }
         }
 
         public virtual void BeforeRequest(IRestClient client, IRestRequest request)
@@ -68,7 +69,7 @@ namespace RSClientWrapper.Core
                 Stopwatch watcher = Stopwatch.StartNew();
                 response = restClient.Execute(request);
                 watcher.Stop();
-                //Logger.Log($"Time Taken For api:{restClient.BaseUrl}{request.Resource} Time: {watcher.Elapsed.TotalSeconds} sec");
+                Logger.Log($"Time Taken For api:{restClient.BaseUrl}{request.Resource} Time: {watcher.Elapsed.TotalSeconds} sec");
                 AfterResponse(restClient, response);
                 LogRestApi(BaseUrl, request, response);
                 TimeoutCheck(request, response);
@@ -113,13 +114,13 @@ namespace RSClientWrapper.Core
                 {
                     rawResponse = restClient.Execute(request);
                     watcher.Stop();
-                    //Logger.Log($"Time Taken For api:{restClient.BaseUrl}{request.Resource} Time: {watcher.Elapsed.TotalSeconds} sec");
+                    Logger.Log($"Time Taken For api:{restClient.BaseUrl}{request.Resource} Time: {watcher.Elapsed.TotalSeconds} sec");
                 }
                 catch (Exception ex)
                 {
                     watcher.Stop();
-                    //Logger.Log($"Time Taken For api:{restClient.BaseUrl}{request.Resource} Time: {watcher.Elapsed.TotalSeconds} sec  with Errors");
-                    //Logger.Log(ex);
+                    Logger.Log($"Time Taken For api:{restClient.BaseUrl}{request.Resource} Time: {watcher.Elapsed.TotalSeconds} sec  with Errors");
+                    Logger.Log(ex);
                 }
 
                 AfterResponse(restClient, rawResponse);
@@ -136,8 +137,8 @@ namespace RSClientWrapper.Core
                     }
                     catch (Exception ex)
                     {
-                        //Logger.Log("******************Deserialization failed****************");
-                        //Logger.LogCritical(ex);
+                        Logger.Log("******************Deserialization failed****************");
+                        Logger.LogCritical(ex);
                         //TODO: tosolve the type mismatch issue but need to log message properly
                         apiResponse.Concern = JsonConvert.DeserializeObject<T>(rawResponse.Content, new JsonSerializerSettings()
                         {
@@ -173,64 +174,64 @@ namespace RSClientWrapper.Core
 
         protected void Log(Uri baseUrl, IRestRequest request, IRestResponse response)
         {
-            //if (Logger == null)
-            //    return;
+            if (Logger == null)
+                return;
 
             //Get the values of the parameters passed to the API
 
             StringBuilder sb = new StringBuilder($" Url :{baseUrl.AbsoluteUri}{request.Resource}");
             if (response != null && response.ErrorException != null)
             {
-                //Logger.Log(response.ErrorException, sb.ToString());
+                Logger.Log(response.ErrorException, sb.ToString());
             }
             else
             {
-                //Logger.Log(sb.ToString());
+                Logger.Log(sb.ToString());
             }
 
         }
         protected void LogRestApi(string url, IRestRequest baseRequest, IRestResponse baseResponse)
         {
-            //if (Logger == null)
-            //    return;
+            if (Logger == null)
+                return;
 
             StringBuilder sb = new StringBuilder();
             sb.Append($" Raw Url :{url}{baseRequest.Resource} Status:{baseResponse.ResponseStatus.ToString()} Code:{baseResponse.StatusCode}");
             if (baseResponse != null && baseResponse.ErrorException != null)
             {
-                //Logger.Log(baseResponse.ErrorException, sb.ToString());
+                Logger.Log(baseResponse.ErrorException, sb.ToString());
             }
 
 
-            //Logger.LogApi(sb.ToString(), $@"{{
-            //                                        ""Url"":""{url}{baseRequest.Resource}"",
-            //                                        ""Request.Params"":{baseRequest?.Parameters.Where(_ => _.Type == ParameterType.QueryString).ToJson()},
-            //                                        ""Request.Body"":{JsonSerializer.Default.Serialize(baseRequest.Parameters)},
-            //                                        ""Reponse.Status"":""{baseResponse?.StatusCode.ToString()}"",
-            //                                        ""Response.RawBody"":{(string.IsNullOrWhiteSpace(baseResponse.Content) ? "\"\"" : baseResponse.Content)}
-            //                                    }}");
+            Logger.LogApi(sb.ToString(), $@"{{
+                                                    ""Url"":""{url}{baseRequest.Resource}"",
+                                                    ""Request.Params"":{baseRequest?.Parameters.Where(_ => _.Type == ParameterType.QueryString).ToJson()},
+                                                    ""Request.Body"":{JsonSerializer.Default.Serialize(baseRequest.Parameters)},
+                                                    ""Reponse.Status"":""{baseResponse?.StatusCode.ToString()}"",
+                                                    ""Response.RawBody"":{(string.IsNullOrWhiteSpace(baseResponse.Content) ? "\"\"" : baseResponse.Content)}
+                                                }}");
 
         }
         protected void LogApi(string url, IRequestConcern request, IResponseConcern response, IRestRequest baseRequest = null, IRestResponse baseResponse = null)
         {
             if (ConfigurationManager.AppSettings["ENABLE:SERIALIZATIONLOG"] != null)
             {
-                //if (Logger == null)
-                //    return;
+                if (Logger == null)
+                    return;
 
                 StringBuilder sb = new StringBuilder();
                 sb.Append($" Url :{url}{baseRequest.Resource} Status: {baseResponse?.ResponseStatus.ToString()} Code:{baseResponse?.StatusCode}");
                 if (baseResponse != null && baseResponse.ErrorException != null)
                 {
-                    //Logger.Log(baseResponse.ErrorException, sb.ToString());
+                    Logger.Log(baseResponse.ErrorException, sb.ToString());
                 }
-                //Logger.LogApi(sb.ToString(), $@"{{
-                //                                ""Url"":""{url}{baseRequest.Resource}"",
-                //                                ""Request.Params"":{JsonSerializer.Default.Serialize(baseRequest?.Parameters.Where(_ => _.Type == ParameterType.QueryString))},
-                //                                ""Request.Body"":{JsonSerializer.Default.Serialize(request)},
-                //                                ""Reponse.Status"":""{baseResponse?.StatusCode.ToString()}  {response.IsSuccess.ToString()}"",
-                //                                ""Response.Body"":{response.ToJson()}
-                //                                }}");
+                Logger.LogApi(sb.ToString(), $@"{{
+                                                ""Url"":""{url}{baseRequest.Resource}"",
+                                                ""Request.Params"":{JsonSerializer.Default.Serialize(baseRequest?.Parameters.Where(_ => _.Type == ParameterType.QueryString))},
+                                                ""Request.Body"":{JsonSerializer.Default.Serialize(request)},
+                                                ""Reponse.Status"":""{baseResponse?.StatusCode.ToString()}  {response.IsSuccess.ToString()}"",
+                                                ""Response.Body"":{response.ToJson()}
+                                                }}");
             }
 
         }

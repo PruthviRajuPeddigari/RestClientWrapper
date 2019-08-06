@@ -51,7 +51,14 @@
   <ItemGroup>
     <Compile Include="Core\BaseApiClient.cs" />
     <Compile Include="Core\BaseTransactionAPIClient.cs" />
+    <Compile Include="Core\Logger\Extensions.cs" />
+    <Compile Include="Core\Logger\Logger.cs" />
+    <Compile Include="Core\Logger\MetaLogger.cs" />
+    <Compile Include="Core\Logger\Utilities.cs" />
+    <Compile Include="DefaultLogger.cs" />
+    <Compile Include="Extension.cs" />
     <Compile Include="JsonSerializer.cs" />
+    <Compile Include="LoggerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
