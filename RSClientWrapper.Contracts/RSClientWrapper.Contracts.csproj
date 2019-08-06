@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAPIClient.cs" />
-    <Compile Include="ICallbackAPIClient.cs" />
+    <Compile Include="ITransactionAPIClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

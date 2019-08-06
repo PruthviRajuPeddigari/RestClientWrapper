@@ -26,8 +26,10 @@ namespace RSClientWrapper.Core
             )
         {
             BaseUrl = baseUrl;
-            restClient = new RestClient(baseUrl);
-            restClient.Timeout = (int)TimeSpan.FromMinutes(10).TotalMilliseconds;
+            restClient = new RestClient(baseUrl)
+            {
+                Timeout = (int)TimeSpan.FromMinutes(10).TotalMilliseconds
+            };
             restClient.AddHandler("application/json", () => JsonSerializer.Default);
             restClient.AddHandler("text/json", () => JsonSerializer.Default);
             restClient.AddHandler("text/x-json", () => JsonSerializer.Default);
