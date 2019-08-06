@@ -1,5 +1,4 @@
 ﻿using RSClientWrapper.Concern;
-using RSClientWrapper.Concerns;
 
 namespace RSClientWrapper.Contract
 {
