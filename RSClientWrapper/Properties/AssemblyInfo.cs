@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RSClientWrapper")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Rest Sharp API Client Wrapper")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Pruthvi Raju Peddigari")]
 [assembly: AssemblyProduct("RSClientWrapper")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
