@@ -1,11 +1,17 @@
-﻿using RSClientWrapper.Concerns;
+﻿using RestSharp.Deserializers;
+using RSClientWrapper.Concerns;
 using RSClientWrapper.Concerns.API;
+using System;
 
 namespace RSClientWrapper.Contract
 {
     public interface IApiClient
     {
         string BaseUrl { get; }
+
+        void AddHandler(string contentType, Func<IDeserializer> deserializerFactory);
+
+        void ChangeDefaultTimeout(int timeout);
 
         IResponseConcern Get(string url, IRequestConcern request = null);
 

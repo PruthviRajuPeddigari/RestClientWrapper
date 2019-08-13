@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
+using RestSharp.Deserializers;
 using RSClientWrapper.Concerns;
 using RSClientWrapper.Concerns.API;
 using RSClientWrapper.Contract;
@@ -31,14 +32,21 @@ namespace RSClientWrapper.Core
             {
                 Timeout = (int)TimeSpan.FromMinutes(10).TotalMilliseconds
             };
-            restClient.AddHandler("application/json", () => JsonSerializer.Default);
-            restClient.AddHandler("text/json", () => JsonSerializer.Default);
-            restClient.AddHandler("text/x-json", () => JsonSerializer.Default);
             Logger = logger;
             if (Logger == null)
             {
                 Logger = new DefaultLogger(string.Empty, string.Empty);//, null);
             }
+        }
+
+        public void AddHandler(string contentType, Func<IDeserializer> deserializerFactory)
+        {
+            restClient.AddHandler(contentType, deserializerFactory);
+        }
+
+        public void ChangeDefaultTimeout(int timeout)
+        {
+            restClient.Timeout = timeout;
         }
 
 
